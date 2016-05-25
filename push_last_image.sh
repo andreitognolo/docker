@@ -1,5 +1,7 @@
 set -ex
 
-CONTAINER_NAME=$(docker ps -l 2> /dev/null|grep -v CONTAINER|grep -v NAMES|awk '{print $1;}')
-echo Pushing container $CONTAINER_NAME
 sudo docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+IMAGE_ID=$(docker ps -l 2> /dev/null|grep -v CONTAINER|grep -v NAMES|awk '{print $2;}')
+echo Pushing container IMAGE_ID
+docker tag $IMAGE_ID andreitognolo/$IMAGE_ID
+docker push andreitognolo/$IMAGE_ID
