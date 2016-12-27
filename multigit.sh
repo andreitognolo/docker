@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-for i in {1..25}
+for i in {1..50}
 do
     openssl rand -base64 6 > README.md
     git add README.md
