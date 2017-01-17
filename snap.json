@@ -1,0 +1,83 @@
+{
+    "automatic-branch-tracking": {},
+    "pull-request-settings": {},
+    "integration-settings": {},
+    "version": 1,
+    "pipeline": {
+	"stack": "Cybele",
+	"languages": {
+	    "Java": "1.8"
+	},
+	"databases": {
+	    "PostgreSQL": "9.4"
+	},
+	"environment_variables": [],
+	"secure_envrionment_variables": [],
+	"secure_files": [],
+	"setup_commands": [],
+	"stages": [{
+	    "name": "FirstStage",
+	    "manual": false,
+	    "debug_mode": false,
+	    "worker_count": 1,
+	    "worker_size": 1,
+	    "environment_variables": {
+		"PATH": "some_path",
+		"FOO": "bar"
+	    },
+	    "secure_environment_variables": {
+		"MONKEY": "some_other_encrypted_value"
+	    },
+	    "secure_files": {
+		"$HOME/.ssh/id_rsa": {
+		    "secure_contents": "some_encrypted_multiline_content",
+		    "permissions": "valid permission string"
+		}
+	    },
+	    "artifacts": [
+		"path/to/foo",
+		"path/to/bar"
+	    ],
+	    "commands": [
+		"bundle install",
+		"bundle exec rspec spec"
+	    ]
+	}, {
+	    "name": "SecondStage",
+	    "automatic": true,
+	    "debug_mode": false,
+	    "number_of_jobs": 1,
+	    "environment_variables": [{
+		"key": "PATH",
+		"value": "node_modules/.bin:/opt/local/java/1.8/bin:/opt/local/rbenv/shims:/opt/local/rbenv/bin:/opt/local/ruby/2.1.5/bin:/var/go/py-virtualenv2.7/bin:/opt/local/python/2.7.6/bin:/opt/local/nvm/v0.10.37/bin:/opt/local/nodejs/0.10.37/bin:/opt/local/php/5.5.15/bin:/opt/local/snap-deploy/bin:/opt/local/snap-ci-parallel-tests/bin:/opt/local/awscli/bin:/opt/rh/qt48/root/usr/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/var/go/android/tools:/var/go/android/platform-tools:/var/go/.bundled-bin",
+		"secure": false
+	    }],
+	    "artifacts": [{
+		"directory": "blah.txt"
+	    }],
+	    "uploaded_files": [],
+	    "tasks": [{
+		"command": "docker info"
+	    }, {
+		"command": "echo 'blah' > blah.txt"
+	    }]
+	}, {
+	    "name": "ThirdStage",
+	    "automatic": false,
+	    "debug_mode": false,
+	    "number_of_jobs": 2,
+	    "environment_variables": [{
+		"key": "PATH",
+		"value": "node_modules/.bin:/opt/local/java/1.8/bin:/opt/local/rbenv/shims:/opt/local/rbenv/bin:/opt/local/ruby/2.1.5/bin:/var/go/py-virtualenv2.7/bin:/opt/local/python/2.7.6/bin:/opt/local/nvm/v0.10.37/bin:/opt/local/nodejs/0.10.37/bin:/opt/local/php/5.5.15/bin:/opt/local/snap-deploy/bin:/opt/local/snap-ci-parallel-tests/bin:/opt/local/awscli/bin:/opt/rh/qt48/root/usr/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/var/go/android/tools:/var/go/android/platform-tools:/var/go/.bundled-bin",
+		"secure": false
+	    }],
+	    "artifacts": [{
+		"directory": "blah.txt"
+	    }],
+	    "uploaded_files": [],
+	    "tasks": [{
+		"command": "ls -la"
+	    }]
+	}]
+    }
+}
